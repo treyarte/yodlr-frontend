@@ -8,6 +8,7 @@ import logo from '../assets/yodler-logo.png'
 import YodlerApi from '../helper/YodlerApi'
 
 import './SignUp.css'
+import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles({
     customContainer: {
@@ -26,12 +27,15 @@ const useStyles = makeStyles({
 })
 
 
-const SignUp =  () => {
+const SignUp =  ({login}) => {
     const classes = useStyles();
+
+    const history = useHistory()
 
     const signUpUser = async (formData) => {
         const user = await YodlerApi.signUp(formData)
-        console.log(user)
+        login(user)
+        history.push(`/users/${user.id}`)
     }
 
     return(
